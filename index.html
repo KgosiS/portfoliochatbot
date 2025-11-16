@@ -9,7 +9,7 @@
 <meta property="og:title" content="Kgosi Sebako • CV Chatbot">
 <meta property="og:description" content="Chat with Kgosi Sebako’s CV chatbot! Ask about skills, projects, education, and achievements.">
 <meta property="og:image" content="https://i.postimg.cc/nz8tMc9Z/628a4b0d-d1c4-487d-8ac8-22a03878b9e0.jpg">
-<meta property="og:url" content="https://YOUR-GITHUB-PAGES-URL/">
+<meta property="og:url" content="https://your-gh-pages-url-here/"> <!-- Replace with your GitHub Pages URL -->
 
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex; flex-direction:column; height:100vh; }
@@ -54,16 +54,13 @@ input, button { font-size:16px !important; }
 </head>
 <body>
 
-<!-- HEADER / Profile clickable -->
 <div class="header" onclick="toggleProfile()">
   <img src="https://i.postimg.cc/nz8tMc9Z/628a4b0d-d1c4-487d-8ac8-22a03878b9e0.jpg" alt="Kgosi Sebako">
   <div class="title">Kgosi Sebako's Portfolio</div>
 </div>
 
-<!-- CHAT MESSAGES -->
 <div class="messages" id="messages"></div>
 
-<!-- INPUT -->
 <div class="bottom">
   <input id="input" type="text" placeholder="Ask something…" onkeydown="if(event.key==='Enter'){sendMessage();}">
   <button onclick="sendMessage()">➤</button>
@@ -78,15 +75,9 @@ input, button { font-size:16px !important; }
   <p><strong>Skills:</strong> Java, Kotlin, Android, Node.js, Firebase, MySQL, HTML, CSS, JS</p>
   <p><strong>Achievements:</strong> IIERC Hackathon 2024 (3rd), MTN/FNB App of the Year finalist</p>
   <div class="links">
-    <a class="whatsapp" href="https://wa.me/2774986080" target="_blank">
-      WhatsApp
-    </a>
-    <a class="github" href="https://github.com/KgosiS" target="_blank">
-      GitHub
-    </a>
-    <a class="linkedin" href="https://www.linkedin.com/in/kgosi-sebako-566a43231?trk=contact-info" target="_blank">
-      LinkedIn
-    </a>
+    <a class="whatsapp" href="https://wa.me/2774986080" target="_blank">WhatsApp</a>
+    <a class="github" href="https://github.com/KgosiS" target="_blank">GitHub</a>
+    <a class="linkedin" href="https://www.linkedin.com/in/kgosi-sebako-566a43231?trk=contact-info" target="_blank">LinkedIn</a>
   </div>
   <span class="closeBtn" onclick="toggleProfile()">Close</span>
 </div>
@@ -119,7 +110,7 @@ function addMessage(text, type){
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
-// SEND MESSAGE (uses Vercel API)
+// SEND MESSAGE
 async function sendMessage(){
   const input = document.getElementById("input");
   const question = input.value.trim();
@@ -135,9 +126,11 @@ async function sendMessage(){
   messagesEl.scrollTop = messagesEl.scrollHeight;
 
   try {
-    const res = await fetch("https://portfoliochatbot-delta.vercel.app/api/chat", { 
+    // Use full Vercel API URL here
+    const res = await fetch("https://portfoliochatbot-delta.vercel.app/api/chat", {
       method:"POST",
       headers:{"Content-Type":"application/json"},
+      mode: "cors",
       body:JSON.stringify({ question, cvText: CV_TEXT })
     });
 
