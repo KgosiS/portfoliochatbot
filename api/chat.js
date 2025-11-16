@@ -1,57 +1,42 @@
-import fetch from "node-fetch";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "POST only" });
-  }
-
-  const { message } = req.body;
-
-  if (!message) {
-    return res.status(400).json({ error: "Missing message" });
+    return res.status(405).json({ error: "Only POST allowed" });
   }
 
   try {
-    const geminiRes = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDz9GIPb5-MRjsciE3jC8-8s3KeHqvGe8o",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text:
-                    "Use ONLY this CV:\n" +
-                    "Name: Kgosi Sebako.\n" +
-                    "Location: Pretoria, Gauteng.\n" +
-                    "Final-year IT student (Software Development).\n" +
-                    "16 distinctions.\n" +
-                    "Skills: Java, Kotlin, Android, Node.js, Firebase, MySQL, HTML, CSS, JavaScript.\n" +
-                    "Projects: IIERC Hackathon 2024 (3rd place), MTN/FNB App of the Year finalist.\n" +
-                    "Education: Diploma IT - IIE Rosebank College.\n" +
-                    "Portfolio: kgosi-sebako-d23a3.web.app.\n" +
-                    "Contact: sebakokgosi@gmail.com.\n" +
-                    "If the answer is not in the CV, reply: 'I don't have that information in my CV.'\n\n" +
-                    "User asked: " + message
-                }
-              ]
-            }
-          ]
-        })
-      }
-    );
+    const { question, cvText } = req.body;
 
-    const data = await geminiRes.json();
+    if (!question) {
+      return res.status(400).json({ error: "No question provided" });
+    }
 
-    const answer =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "I don't have that information in my CV.";
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-    return res.status(200).json({ answer });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+    });
+
+    const prompt = `
+You are a CV assistant chatbot for Kgosi.
+
+CV DATA:
+${cvText}
+
+User Question:
+${question}
+
+Answer based ONLY on the CV. Keep responses short and friendly.
+    `;
+
+    const result = await model.generateContent(prompt);
+    const responseText = result.response.text();
+
+    res.status(200).json({ answer: responseText });
 
   } catch (err) {
-    return res.status(500).json({ error: "Server error", detail: err });
+    console.error("ERROR:", err);
+    res.status(500).json({ error: "Server Error" });
   }
 }
