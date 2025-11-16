@@ -38,10 +38,12 @@ input, button { font-size:16px !important; }
   width:90%; 
   max-width:350px; 
   z-index:1000;
+  text-align:center;
 }
-#profilePopup h2 { margin-top:0; font-size:18px; color:#075E54; }
+#profilePopup img { width:100px; height:100px; border-radius:50%; margin-bottom:10px; object-fit:cover; }
+#profilePopup h2 { margin:10px 0 5px; font-size:20px; color:#075E54; }
 #profilePopup p { font-size:14px; margin:5px 0; }
-#profilePopup .links { display:flex; gap:10px; margin-top:10px; }
+#profilePopup .links { display:flex; gap:10px; justify-content:center; margin-top:10px; flex-wrap:wrap; }
 #profilePopup .links a { text-decoration:none; color:#fff; padding:8px 12px; border-radius:5px; font-size:14px; display:flex; align-items:center; gap:5px; }
 #profilePopup .links a.whatsapp { background:#25D366; }
 #profilePopup .links a.github { background:#333; }
@@ -68,6 +70,7 @@ input, button { font-size:16px !important; }
 
 <!-- PROFILE POPUP -->
 <div id="profilePopup">
+  <img src="https://i.postimg.cc/nz8tMc9Z/628a4b0d-d1c4-487d-8ac8-22a03878b9e0.jpg" alt="Kgosi Sebako">
   <h2>Kgosi Sebako</h2>
   <p><strong>Location:</strong> Pretoria, Gauteng</p>
   <p><strong>Education:</strong> Diploma IT – IIE Rosebank College</p>
@@ -97,7 +100,7 @@ Contact: sebakokgosi@gmail.com.
 
 // AUTO FIRST MESSAGE
 window.onload = () => {
-  addMessage("Hola! I’m Kgosi’s CV Chatbot.\nAsk me anything about his skills, experience or projects!", "bot");
+  addMessage("👋 Hi! I’m Kgosi’s CV Chatbot.\nAsk me anything about his skills, experience or projects!", "bot");
 };
 
 // ADD MESSAGE
