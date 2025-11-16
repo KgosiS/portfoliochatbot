@@ -5,111 +5,30 @@
 <title>Kgosi • CV Chatbot</title>
 
 <style>
-body {
-  margin: 0;
-  background: #ece5dd;
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* HEADER */
-.header {
-  background: #075E54;
-  color: white;
-  padding: 12px 15px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.header img {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-}
-.header .title {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-/* CHAT MESSAGES */
-.messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* BUBBLES */
-.message {
-  max-width: 75%;
-  padding: 10px 13px;
-  border-radius: 8px;
-  font-size: 14px;
-}
-.user {
-  background: #dcf8c6;
-  align-self: flex-end;
-  border-top-right-radius: 0;
-}
-.bot {
-  background: #fff;
-  align-self: flex-start;
-  border-top-left-radius: 0;
-}
-
-/* INPUT AREA (FIXED) */
-.bottom {
-  padding: 8px;
-  background: #f0f0f0;
-  display: flex;
-  gap: 8px;
-  border-top: 1px solid #ccc;
-  position: sticky;
-  bottom: 0;
-}
-
-.bottom input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-}
-
-.bottom button {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: none;
-  background: #25D366;
-  color: #fff;
-  font-size: 20px;
-}
-
-/* Fix zooming on iPhone */
-input, button {
-  font-size: 16px !important;
-}
-
+body { margin:0; background:#ece5dd; font-family:Arial; height:100vh; display:flex; flex-direction:column; }
+.header { background:#075E54; color:white; padding:12px 15px; display:flex; align-items:center; gap:12px; }
+.header img { width:38px; height:38px; border-radius:50%; }
+.header .title { font-size:17px; font-weight:bold; }
+.messages { flex:1; overflow-y:auto; padding:15px; display:flex; flex-direction:column; gap:10px; }
+.message { max-width:75%; padding:10px 13px; border-radius:8px; font-size:14px; word-wrap:break-word; }
+.user { background:#dcf8c6; align-self:flex-end; border-top-right-radius:0; }
+.bot { background:#fff; align-self:flex-start; border-top-left-radius:0; }
+.bottom { padding:8px; background:#f0f0f0; display:flex; gap:8px; border-top:1px solid #ccc; position:sticky; bottom:0; }
+.bottom input { flex:1; padding:12px; border-radius:20px; border:1px solid #ccc; font-size:15px; }
+.bottom button { width:45px; height:45px; border-radius:50%; border:none; background:#25D366; color:#fff; font-size:20px; }
+input, button { font-size:16px !important; }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <img src="https://i.postimg.cc/nz8tMc9Z/628a4b0d-d1c4-487d-8ac8-22a03878b9e0.jpg">
-  <div class="title">Kgosi Chatbot</div>
+  <div class="title">Kgosi Sebako's CV</div>
 </div>
 
-<!-- CHAT -->
 <div class="messages" id="messages"></div>
 
-<!-- INPUT -->
 <div class="bottom">
   <input id="input" type="text" placeholder="Ask something…" onkeydown="if(event.key==='Enter'){sendMessage();}">
   <button onclick="sendMessage()">➤</button>
@@ -128,11 +47,10 @@ Portfolio: kgosi-sebako-d23a3.web.app.
 Contact: sebakokgosi@gmail.com.
 `;
 
-const API_URL = "https://portfoliochatbot-delta.vercel.app/api/chat";
+const API_URL = "/api/chat"; // works on Vercel
 
 const messagesEl = document.getElementById("messages");
 
-// AUTO FIRST MESSAGE
 window.onload = () => {
   addMessage("👋 Hi! I’m Kgosi’s CV Chatbot.\nAsk me anything about his skills, experience or projects!", "bot");
 };
@@ -161,9 +79,9 @@ async function sendMessage(){
 
   try {
     const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, cvText: CV_TEXT })
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ question, cvText: CV_TEXT })
     });
 
     const data = await res.json();
@@ -171,7 +89,7 @@ async function sendMessage(){
     loading.remove();
     addMessage(data.answer || "I couldn't respond.", "bot");
 
-  } catch(err) {
+  } catch(err){
     loading.remove();
     addMessage("Network error. Try again.", "bot");
   }
