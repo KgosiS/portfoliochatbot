@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Only POST allowed" });
+    return res.status(405).json({ error: "Only POST requests allowed" });
   }
 
   try {
@@ -12,31 +12,30 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "No question provided" });
     }
 
+    // Initialize Gemini client with your API key from environment variables
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
     });
 
     const prompt = `
-You are a CV assistant chatbot for Kgosi.
+You are Kgosi's CV chatbot. Answer using ONLY this CV:
 
-CV DATA:
 ${cvText}
 
-User Question:
-${question}
+User asked: ${question}
 
-Answer based ONLY on the CV. Keep responses short and friendly.
-    `;
+If the answer is not in the CV, reply: "I don't have that information in my CV."
+`;
 
     const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    const output = result.response.text();
 
-    res.status(200).json({ answer: responseText });
+    res.status(200).json({ answer: output });
 
-  } catch (err) {
-    console.error("ERROR:", err);
-    res.status(500).json({ error: "Server Error" });
+  } catch (error) {
+    console.error("Chat API Error:", error);
+    res.status(500).json({ answer: "Server error. Please try again." });
   }
 }
