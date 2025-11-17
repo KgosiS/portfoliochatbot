@@ -98,7 +98,7 @@ Contact: sebakokgosi@gmail.com. +27 774986080
 
 // AUTO FIRST MESSAGE
 window.onload = () => {
-  addMessage("Sharp sharp! I’m Kgosi’s CV Chatbot.\nAsk me anything about his skills, experience or projects!", "bot");
+  addMessage("Hola! I’m Kgosi’s CV Chatbot.\nAsk me anything about his skills, experience or projects!", "bot");
 };
 
 // ADD MESSAGE
@@ -127,7 +127,8 @@ async function sendMessage(){
 
   try {
     // Use full Vercel API URL here
-    const res = await fetch("https://portfoliochatbot-delta.vercel.app/api/chat", {
+    const res = await fetch("https://kgosi-chatbot.onrender.com/api/chat")
+, {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       mode: "cors",
