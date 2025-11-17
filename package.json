@@ -2,9 +2,9 @@
   "name": "portfolio-chatbot",
   "version": "1.0.0",
   "type": "module",
-  "main": "api/chat.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node api/chat.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "22.x"
