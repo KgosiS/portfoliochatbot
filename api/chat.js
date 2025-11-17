@@ -1,10 +1,14 @@
+import express from "express";
+import cors from "cors";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Only POST requests allowed" });
-  }
+const app = express();
+const PORT = process.env.PORT || 3000;
 
+app.use(cors());
+app.use(express.json());
+
+app.post("/api/chat", async (req, res) => {
   try {
     const { question, cvText } = req.body;
 
@@ -36,4 +40,8 @@ If the answer is not in the CV, say: "I don't have that information in my CV."
     console.error("Chat API Error:", error);
     res.status(500).json({ answer: "Server error. Please try again." });
   }
-}
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
