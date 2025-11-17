@@ -8,16 +8,19 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Simple GET route for testing
+app.get("/", (req, res) => {
+  res.send("Kgosi Sebako CV Chatbot API is running!");
+});
+
+// POST /api/chat route
 app.post("/api/chat", async (req, res) => {
+  const { question, cvText } = req.body;
+
+  if (!question) return res.status(400).json({ error: "No question provided" });
+  if (!process.env.GEMINI_API_KEY) return res.status(500).json({ answer: "API key missing" });
+
   try {
-    const { question, cvText } = req.body;
-
-    if (!question) return res.status(400).json({ error: "No question provided" });
-    if (!process.env.GEMINI_API_KEY) {
-      console.error("GEMINI_API_KEY missing!");
-      return res.status(500).json({ answer: "Server error: API key missing." });
-    }
-
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
@@ -35,13 +38,13 @@ If the answer is not in the CV, say: "I don't have that information in my CV."
     const output = result.response?.text() || "I couldn't get a response.";
 
     res.status(200).json({ answer: output });
-
   } catch (error) {
     console.error("Chat API Error:", error);
     res.status(500).json({ answer: "Server error. Please try again." });
   }
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
