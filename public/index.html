@@ -10,6 +10,8 @@
 <meta property="og:image" content="https://i.postimg.cc/nz8tMc9Z/628a4b0d-d1c4-487d-8ac8-22a03878b9e0.jpg">
 <meta property="og:url" content="https://your-gh-pages-url-here/">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJqC6YJpYmYw6tE8K9S+lJ3P8Tj4g8K9g5/F6z8pI9o4t5/g2s/q8T2d4uG6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex; flex-direction:column; height:100vh; }
 
@@ -36,9 +38,10 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   gap:15px;
   align-items:center;
 }
+/* Adjusted font size for Font Awesome icons if needed, but keeping original for general look */
 .header-icons a {
   color:white;
-  font-size:22px;
+  font-size:22px; 
   text-decoration:none;
 }
 
@@ -103,9 +106,9 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   </div>
 
   <div class="header-icons">
-    <a href="tel:+27774986080">&#9742;</a>
+    <a href="tel:+27774986080"><i class="fas fa-phone"></i></a>
 
-    <a href="mailto:sebakokgosi@gmail.com">&#9993;</a>
+    <a href="mailto:sebakokgosi@gmail.com"><i class="fas fa-envelope"></i></a>
   </div>
 
 </div>
@@ -177,7 +180,7 @@ function addMessage(text, type){
   const div = document.createElement("div");
   div.className = "message " + type;
   
-  // Convert markdown bold **text** to HTML <strong>text</strong>
+  // Convert markdown bold **text** to HTML <strong>text</strong> (Retained from previous fix)
   let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   
   div.innerHTML = formattedText;
