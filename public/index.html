@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Kgosi Sebako • CV Chatbot</title>
 
-<!-- Link sharing meta tags -->
 <meta property="og:title" content="Kgosi Sebako • CV Chatbot">
 <meta property="og:description" content="Chat with Kgosi Sebako’s CV chatbot! Ask about skills, projects, education, and achievements.">
 <meta property="og:image" content="https://i.postimg.cc/nz8tMc9Z/628a4b0d-d1c4-487d-8ac8-22a03878b9e0.jpg">
@@ -96,7 +95,6 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
 </head>
 <body>
 
-<!-- HEADER WITH CALL + EMAIL ICONS -->
 <div class="header">
   
   <div class="header-left" onclick="toggleProfile()">
@@ -105,16 +103,13 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   </div>
 
   <div class="header-icons">
-    <!-- CALL ICON -->
-    <a href="tel:+27774986080">📞</a>
+    <a href="tel:+27774986080">&#9742;</a>
 
-    <!-- EMAIL ICON -->
-    <a href="mailto:sebakokgosi@gmail.com">✉️</a>
+    <a href="mailto:sebakokgosi@gmail.com">&#9993;</a>
   </div>
 
 </div>
 
-<!-- CHAT -->
 <div class="messages" id="messages"></div>
 
 <div class="bottom">
@@ -122,7 +117,6 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   <button onclick="sendMessage()">➤</button>
 </div>
 
-<!-- PROFILE POPUP -->
 <div id="profilePopup">
   <img src="https://i.postimg.cc/nz8tMc9Z/628a4b0d-d1c4-487d-8ac8-22a03878b9e0.jpg">
   <h2>Kgosi Sebako</h2>
@@ -175,13 +169,6 @@ You can ask me about skills, projects, education, achievements, or contact info.
 `;
 
 
-
-
-
-
-
-
-
 window.onload = () => {
   addMessage("Hola! I’m Kgosi’s CV Chatbot.\nAsk me anything about his skills, experience or projects!", "bot");
 };
@@ -189,7 +176,11 @@ window.onload = () => {
 function addMessage(text, type){
   const div = document.createElement("div");
   div.className = "message " + type;
-  div.innerHTML = text;
+  
+  // Convert markdown bold **text** to HTML <strong>text</strong>
+  let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  div.innerHTML = formattedText;
   messagesEl.appendChild(div);
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
@@ -234,3 +225,4 @@ function toggleProfile(){
 
 </body>
 </html>
+
