@@ -38,7 +38,7 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   gap:15px;
   align-items:center;
 }
-/* Adjusted font size for Font Awesome icons if needed, but keeping original for general look */
+/* Font size for the Font Awesome icons */
 .header-icons a {
   color:white;
   font-size:22px; 
@@ -180,7 +180,7 @@ function addMessage(text, type){
   const div = document.createElement("div");
   div.className = "message " + type;
   
-  // Convert markdown bold **text** to HTML <strong>text</strong> (Retained from previous fix)
+  // Convert markdown bold **text** to HTML <strong>text</strong>
   let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   
   div.innerHTML = formattedText;
