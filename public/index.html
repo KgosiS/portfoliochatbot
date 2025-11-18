@@ -1,3 +1,5 @@
+Here is the entire corrected file. I have implemented all previous requests (vector header icons, developer tagline, markdown bolding) and added Font Awesome icons to the WhatsApp, GitHub, and LinkedIn links in the profile popup.
+📄 Complete & Corrected HTML File
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,17 +32,17 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   gap:12px;
   cursor:pointer;
 }
-/* New container for name and tagline */
+/* Container for name and tagline */
 .header-left > div { 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    line-height: 1.2; /* Adjust spacing */
+    line-height: 1.2; 
 }
 .header img { width:38px; height:38px; border-radius:50%; }
 .header .title { font-size:17px; font-weight:bold; }
 
-/* New CSS for the Tagline */
+/* CSS for the Tagline */
 .header .tagline {
     font-size: 11px;
     font-weight: normal; 
@@ -96,7 +98,7 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   font-size:14px; 
   display:flex; 
   align-items:center; 
-  gap:5px; 
+  gap:5px; /* Spacing between icon and text */
 }
 #profilePopup .links a.whatsapp { background:#25D366; }
 #profilePopup .links a.github { background:#333; }
@@ -147,9 +149,9 @@ body { margin:0; font-family:Arial,sans-serif; background:#ece5dd; display:flex;
   <p><strong>Achievements:</strong> IIERC Hackathon 2024 (3rd), MTN/FNB App of the Year finalist</p>
 
   <div class="links">
-    <a class="whatsapp" href="https://wa.me/27774986080" target="_blank">WhatsApp</a>
-    <a class="github" href="https://github.com/KgosiS" target="_blank">GitHub</a>
-    <a class="linkedin" href="https://www.linkedin.com/in/kgosi-sebako-566a43231?trk=contact-info" target="_blank">LinkedIn</a>
+    <a class="whatsapp" href="https://wa.me/27774986080" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a class="github" href="https://github.com/KgosiS" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a class="linkedin" href="https://www.linkedin.com/in/kgosi-sebako-566a43231?trk=contact-info" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
   </div>
 
   <span class="closeBtn" onclick="toggleProfile()">Close</span>
@@ -245,3 +247,4 @@ function toggleProfile(){
 
 </body>
 </html>
+
